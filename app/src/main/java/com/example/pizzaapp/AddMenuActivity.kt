@@ -20,6 +20,8 @@ class AddMenuActivity : AppCompatActivity() {
     companion object{
         val IMAGE_REQUEST_CODE = 100
     }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_menu)
@@ -48,7 +50,6 @@ class AddMenuActivity : AppCompatActivity() {
             val bitmap : Bitmap = bitmapDrawable.bitmap
 
             val menuModel  = MenuModel(id,name,price,bitmap)
-
             databaseHelper.addMenu(menuModel)
         }
     }
