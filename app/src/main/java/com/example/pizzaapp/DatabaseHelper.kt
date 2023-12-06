@@ -130,6 +130,28 @@ class DatabaseHelper(var context:Context):SQLiteOpenHelper (
         }
         db.close()
     }
+    fun updateMenu(menu:MenuModel){
+        val db = this.writableDatabase
+        val values = ContentValues()
+        values.put(COLUMN_ID_MENU, menu.id)
+        values.put(COLUMN_NAMA_MENU, menu.name)
+        values.put(COLUMN_PRICE_MENU, menu.price)
+
+        val byteOutputStream = ByteArrayOutputStream()
+        val imaageInByte:ByteArray
+        menu.image.compress(Bitmap.CompressFormat.JPEG, 100, byteOutputStream)
+        imaageInByte = byteOutputStream.toByteArray()
+        values.put(COLUMN_IMAGE, imaageInByte)
+
+        val result = db.update(TABLE_MENU,values, COLUMN_ID_MENU + " = ? ", arrayOf(menu.id.toString())).toLong()
+
+        if(result == (0).toLong()){
+            Toast.makeText(context,"Add menu failed", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(context, "add menu sukses", Toast.LENGTH_SHORT).show()
+        }
+        db.close()
+    }
 
     @SuppressLint("Range")
     fun checkData(email: String):String{
@@ -161,7 +183,7 @@ class DatabaseHelper(var context:Context):SQLiteOpenHelper (
         val db = this.readableDatabase
         var cursor: Cursor?=null
         try{
-            cursor = db.rawQuery("SELECT * FROM" +  TABLE_MENU, null)
+            cursor = db.rawQuery("SELECT * FROM " +  TABLE_MENU, null)
         }catch(se:SQLiteException){
             db.execSQL(CREATE_MENU_TABLE)
             return ArrayList()
