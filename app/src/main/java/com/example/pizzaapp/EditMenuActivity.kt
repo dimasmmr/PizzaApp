@@ -39,7 +39,7 @@ class EditMenuActivity : AppCompatActivity() {
         textPrice.setText(hargaMakanan.toString())
         image.setImageBitmap(gambarMakanan)
 
-
+//drgdfgdfgdfdfg
         btnAddImage.setOnClickListener{
             pickImageGalery()
         }
