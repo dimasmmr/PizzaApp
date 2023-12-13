@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,10 +38,45 @@ class FragmentTransaction : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transaction, container, false)
+       val view =  return inflater.inflate(R.layout.fragment_transaction, container, false)
+
+        rvTransaksi = view.findViewById(R.id.recyclerTransaksi)
+
+
+        displayData()
+
+//        buttonPay.setOnClickListener {
+//            val dbHelper = DatabaseHelper(this,requireContext())
+//            dbHelper.addTransaction()
+//            activity?.let {
+//                val intent = Intent(it,PaymentActivity)
+//            }
+//        }
+
+
+
+      return view
+
+
+
+    }
+
+    fun displayData(){
+        rvTransaksi.layoutManager = LinearLayoutManager(activity)
+        rvTransaksi.adapter = TransaksiAdapter()
+
+        txtOrder.text = TransaksiAdapter.harga.toString()
+        txtTax.text = (TransaksiAdapter.harga * 0.10).toString()
+        txtTotal.text = (TransaksiAdapter.harga + (TransaksiAdapter.harga * 0.10)).toString()
     }
 
     companion object {
+
+        lateinit var rvTransaksi: RecyclerView
+        lateinit var txtOrder: TextView
+        lateinit var txtTax : TextView
+        lateinit var txtTotal: TextView
+        lateinit var  buttonPay: Button
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -56,4 +95,6 @@ class FragmentTransaction : Fragment() {
                 }
             }
     }
+
+
 }

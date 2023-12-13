@@ -51,6 +51,9 @@ class AddMenuActivity : AppCompatActivity() {
 
             val menuModel  = MenuModel(id,name,price,bitmap)
             databaseHelper.addMenu(menuModel)
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
